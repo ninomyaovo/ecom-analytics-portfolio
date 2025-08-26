@@ -1,0 +1,13 @@
+# Tableau
+*.hyper
+*.twb
+*.twbx
+.DS_Store
+
+# Python/Notebooks (if you add later)
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# OS
+Thumbs.db
