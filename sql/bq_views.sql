@@ -1,9 +1,3 @@
--- ===============================================
--- Where to run: Google BigQuery Console → Query editor
--- Prereqs: Create a dataset named `portfolio` in US region.
--- Replace YOUR_PROJECT_ID with your actual project ID.
--- ===============================================
-
 -- View 1: Daily Orders & Revenue
 CREATE OR REPLACE VIEW `e-commerce-project-470122.portfolio.v_daily_revenue` AS
 SELECT
