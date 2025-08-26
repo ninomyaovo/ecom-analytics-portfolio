@@ -5,7 +5,7 @@
 -- ===============================================
 
 -- View 1: Daily Orders & Revenue
-CREATE OR REPLACE VIEW `YOUR_PROJECT_ID.portfolio.v_daily_revenue` AS
+CREATE OR REPLACE VIEW `e-commerce-project-470122.portfolio.v_daily_revenue` AS
 SELECT
   DATE(o.created_at) AS order_date,
   COUNT(DISTINCT o.order_id) AS orders,
@@ -18,7 +18,7 @@ GROUP BY order_date
 ORDER BY order_date;
 
 -- View 2: Category GMV & Margin (overall)
-CREATE OR REPLACE VIEW `YOUR_PROJECT_ID.portfolio.v_category_margin` AS
+CREATE OR REPLACE VIEW `e-commerce-project-470122.portfolio.v_category_margin` AS
 SELECT
   p.category,
   SUM(oi.sale_price) AS gmv,
@@ -31,7 +31,7 @@ GROUP BY p.category
 ORDER BY gmv DESC;
 
 -- View 3: Category GMV & Margin by day (enables date filtering in Tableau)
-CREATE OR REPLACE VIEW `YOUR_PROJECT_ID.portfolio.v_category_margin_daily` AS
+CREATE OR REPLACE VIEW `e-commerce-project-470122.portfolio.v_category_margin_daily` AS
 SELECT
   DATE(o.created_at) AS order_date,
   p.category,
