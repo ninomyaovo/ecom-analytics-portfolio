@@ -16,6 +16,21 @@
 
 ## Reproduce this project
 
+## Results (Screenshots)
+
+> Preview of the dashboard outputs. (Images are in `docs/img/`.)
+
+**Overview (Revenue & Orders trend + KPIs)**
+![Overview](docs/img/overview.png)
+
+**Category Unit Economics (GMV & Margin%)**
+![Category](docs/img/category.png)
+
+### Quick insights (example — replace with your findings)
+- Revenue up **+X% MoM**; Orders +Y%; **AOV** stable at $Z.
+- Top categories by GMV: A, B, C; **Highest Margin%**: D.
+- Seasonal lift visible in Q4; consider advancing promo calendar and inventory.
+
 ### 1) BigQuery setup
 **Where to run:** Google BigQuery Console → **Query editor**
 
