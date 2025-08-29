@@ -27,14 +27,13 @@ Data Source: The TheLook dataset is an e-commerce dataset provided by Google Clo
 🔗 [View Interactive Dashboard on Tableau Public]([https://public.tableau.com/views/YOUR-DASHBOARD-LINK](https://public.tableau.com/app/profile/muzi.chen4126/viz/E-commerceProject_17564325507470/E-commerceOverview?publish=yes))
 
 ### Quick insights (see `docs/executive_memo.md` for full details)
-- Revenue up **+57.6% MoM**; Orders +56.5%; **AOV** = $85.8 for past 12 months.
-- Top categories by GMV: A, B, C; **Highest Margin%**: D.
+- Revenue up **+69.7% MoM**; Orders +64.1%; **AOV** = $86.9 for past 12 months.
+- Top categories by GMV: Outerwear, Jeans, and Sweaters; **Highest Margin%**: D.
 
 ## Business questions this answers
 1. **Growth**: How are revenue and orders trending? What’s the **AOV**?
 2. **Unit economics**: Which categories drive **GMV** and **Margin%**?
-3. **Seasonality**: What periods show spikes or dips?
-4. **What drove the jump:** Orders vs AOV
+3. **What drove the jump of this month:** Orders vs AOV
 5. **Next actions**: Where should we shift focus—channels, categories, pricing, or bundles?
 
 ## KPIs used (see `docs/kpi_definitions.md` for full details)
