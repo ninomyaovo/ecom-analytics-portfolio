@@ -3,8 +3,8 @@
 **Date:** <2025-08-25>  
 
 ## 1) Key takeaways
-- Revenue up **+69.7% MoM**; Orders +64.1%; **AOV** $86.9 for past 12 months.
-- Revenue increase is explained by Orders this month: 4872, last month: 4025 (+21.0% MoM). AOV fell slightly this month: (−4.9%), so growth was volume-driven rather than basket size expansion.
+- Revenue up **+19.4% MoM**; Orders +25.7%; **AOV** $86.1 for past 12 months.
+- Revenue increase is explained by Orders this month: 6124, last month: 4872 (+25.7% MoM). AOV fell slightly this month: 84.4 last month: 88.8 (−5.0%), so growth was volume-driven rather than basket size expansion.
 
 ## 2) What we measured
 - KPIs: Revenue, Orders, **AOV**, Margin%, GMV
