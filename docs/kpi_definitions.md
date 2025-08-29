@@ -11,7 +11,7 @@ AOV = Revenue / Orders.
 Interpretation: average dollars per order over the selected period.
 
 **GMV (Gross Merchandise Value)**  
-Sum of `sale_price` before considering promotions/returns (context-dependent).
+Sum of `sale_price`.
 
 **Margin**  
 Margin = Revenue − Cost. (Here, cost is from `products.cost` in TheLook.)
