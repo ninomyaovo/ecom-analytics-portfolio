@@ -1,3 +1,4 @@
+-- Create Views
 -- 1. Daily Orders & Revenue
 CREATE OR REPLACE VIEW your_dataset.v_daily_revenue AS
 SELECT
@@ -29,6 +30,7 @@ GROUP BY order_date, p.category
 ORDER BY order_date, p.category;
 
 ```
+-- Check for other indicator
 -- 3. KPIs for the last 12 months
 DECLARE start_date DATE DEFAULT DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 11 MONTH);
 DECLARE end_date   DATE DEFAULT DATE_ADD(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 1 MONTH);
