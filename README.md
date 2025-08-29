@@ -2,15 +2,19 @@
 
 **TL;DR:** A clean, reproducible analytics project that showcases SQL rigor, KPI design, and executive storytelling using the **TheLook eCommerce** public dataset (BigQuery) and **Tableau**.
 
-## What this project demonstrates
-- End-to-end analytics: data → SQL views → BI dashboard → business insights
-- Core KPIs: **Revenue, Orders, AOV, Margin%**, Category performance
-- Clear **executive memo** with decisions and next steps
+Data Source: The TheLook dataset is an e-commerce dataset provided by Google Cloud Run as part of their BigQuery Public Datasets program. It contains online retail business data for 2000+ days including:
+- users → Customer information (location, sign-up date, gender, age group, etc.).
+- products → Product catalog (id, category, brand, department, cost, and price).
+- orders → Order-level info (order id, user id, order status, created_at, returned/cancelled).
+- order_items → Line-item detail for each order (sale_price, product_id, cost).
+- distribution_centers → Warehouse locations.
+- inventory_items → Stock levels by product/location.
+- events → Web events (page views, clicks, conversions).
 
-## Stack
-- **Warehouse:** Google BigQuery (public dataset: `bigquery-public-data.thelook_ecommerce`)
-- **BI:** Tableau Desktop (or Tableau Public if you export as .twbx)
-- **Repo:** This GitHub project (you)
+## What this project demonstrates
+- End-to-end analytics: data → SQL views → Tableau dashboard → business insights
+- Core KPIs: Revenue, Orders, AOV, Margin%, Category performance
+- Clear **executive memo** with decisions and next steps
 
 ---
 
@@ -26,7 +30,7 @@
 **Category Unit Economics (GMV & Margin%)**
 ![Category](docs/img/category.png)
 
-### Quick insights (example — replace with your findings)
+### Quick insights (Details in `docs\README.md`)
 - Revenue up **+X% MoM**; Orders +Y%; **AOV** stable at $Z.
 - Top categories by GMV: A, B, C; **Highest Margin%**: D.
 - Seasonal lift visible in Q4; consider advancing promo calendar and inventory.
