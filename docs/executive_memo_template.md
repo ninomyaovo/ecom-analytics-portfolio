@@ -1,26 +1,16 @@
-# Executive Memo — E-commerce Overview (Template)
+# E-commerce Overview
 
-> Keep it to 1–2 pages. Aim for decisions, not details.
+**Date:** <2025-08-25>  
 
-**Date:** <YYYY-MM-DD>  
-**Analyst:** <Your Name>  
-**Data Window:** <e.g., Last 12 months>
-
-## 1) Key takeaways (3–5 bullets)
-- Example: Revenue up **+8.2% MoM**; Orders +6.1%; **AOV** +2.0%.
-- Example: **Pet Supplies** leads GMV (28%) with **33% margin**; opportunity for bundles.
-- Example: Refund rate stable at 2.1%; no major quality red flags.
+## 1) Key takeaways
+- Revenue up **+57.6% MoM**; Orders +56.5%; **AOV** +85.8% for past 12 months.
+- orders drove the jump of last month compare to AOV.
 
 ## 2) What we measured
 - KPIs: Revenue, Orders, **AOV**, Margin%, GMV
-- Views: `v_daily_revenue`, `v_category_margin_daily`
+- Views: `daily_revenue`, `category_margin_daily`
 
-## 3) Insights (evidence → implication)
-- **Seasonal lift in Q4**: GMV +15% vs Q3 → Prep inventory/promo calendar earlier.
-- **Category mix**: Lighting has high margin% but low volume → test pricing/offers.
-- **AOV drift**: AOV rising with new product bundles → consider expanding bundles.
-
-## 4) Actions (next 30 days)
+## 3) Actions (next 30 days)
 - Reallocate promo budget to top-margin categories; add two bundle SKUs.
 - Launch CRM experiment for repeat buyers (free shipping threshold).
 - Add category-specific landing pages for top 3 categories.
