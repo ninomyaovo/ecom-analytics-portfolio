@@ -1,33 +1,52 @@
 -- Create Views
 -- 1. Daily Orders & Revenue
 CREATE OR REPLACE VIEW `YOUR_PROJECT_ID.portfolio.v_daily_revenue` AS
+WITH base AS (
+  SELECT
+    DATE(o.created_at) AS order_date,
+    o.order_id,
+    oi.sale_price
+  FROM `bigquery-public-data.thelook_ecommerce.orders` AS o
+  JOIN `bigquery-public-data.thelook_ecommerce.order_items` AS oi
+    ON oi.order_id = o.order_id
+  WHERE
+    o.status NOT IN ('Cancelled','Returned')
+    AND DATE(o.created_at) <= DATE('2025-08-26')   -- <-- hard cutoff
+)
 SELECT
-  DATE(o.created_at) AS order_date,
-  COUNT(DISTINCT o.order_id) AS orders,
-  SUM(oi.sale_price) AS revenue
-FROM `bigquery-public-data.thelook_ecommerce.orders` AS o
-JOIN `bigquery-public-data.thelook_ecommerce.order_items` AS oi
-  ON o.order_id = oi.order_id
-WHERE o.status NOT IN ('Cancelled','Returned')
+  order_date,
+  COUNT(DISTINCT order_id) AS orders,
+  SUM(sale_price)          AS revenue
+FROM base
 GROUP BY order_date
 ORDER BY order_date;
 
 -- 2. Category GMV & Margin
 CREATE OR REPLACE VIEW `YOUR_PROJECT_ID.portfolio.v_category_margin_daily` AS
+WITH base AS (
+  SELECT
+    DATE(o.created_at) AS order_date,
+    p.category,
+    oi.sale_price,
+    p.cost
+  FROM `bigquery-public-data.thelook_ecommerce.order_items` AS oi
+  JOIN `bigquery-public-data.thelook_ecommerce.orders` AS o
+    ON o.order_id = oi.order_id
+  JOIN `bigquery-public-data.thelook_ecommerce.products` AS p
+    ON p.id = oi.product_id
+  WHERE
+    o.status NOT IN ('Cancelled','Returned')
+    AND DATE(o.created_at) <= DATE('2025-08-26')   -- <-- hard cutoff
+)
 SELECT
-  DATE(o.created_at) AS order_date,
-  p.category,
-  SUM(oi.sale_price) AS gmv,
-  SUM(oi.sale_price - p.cost) AS margin,
-  SAFE_DIVIDE(SUM(oi.sale_price - p.cost), NULLIF(SUM(oi.sale_price),0)) AS margin_pct
-FROM `bigquery-public-data.thelook_ecommerce.order_items` AS oi
-JOIN `bigquery-public-data.thelook_ecommerce.orders`      AS o
-  ON o.order_id = oi.order_id
-JOIN `bigquery-public-data.thelook_ecommerce.products`    AS p
-  ON oi.product_id = p.id
-WHERE o.status NOT IN ('Cancelled','Returned')
-GROUP BY order_date, p.category
-ORDER BY order_date, p.category;
+  order_date,
+  category,
+  SUM(sale_price)                                        AS gmv,
+  SUM(sale_price - cost)                                 AS margin,
+  SAFE_DIVIDE(SUM(sale_price - cost), NULLIF(SUM(sale_price), 0)) AS margin_pct
+FROM base
+GROUP BY order_date, category
+ORDER BY order_date, category;
 
 ```
 -- Check for other indicator
@@ -113,7 +132,7 @@ FROM cat
 ORDER BY gmv DESC
 LIMIT 10;
 
--- 6. Last full month vs previous: Orders, AOV, and their MoM%
+-- 6. What drove the jump: Last full month vs previous: Orders, AOV, and their MoM%
 DECLARE last_m_start DATE DEFAULT DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 1 MONTH);
 DECLARE last_m_end   DATE DEFAULT DATE_TRUNC(CURRENT_DATE(), MONTH);
 DECLARE prev_m_start DATE DEFAULT DATE_SUB(last_m_start, INTERVAL 1 MONTH);
