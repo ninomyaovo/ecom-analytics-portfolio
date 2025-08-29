@@ -1,4 +1,35 @@
--- 1. KPIs for the last 12 months
+-- 1. Daily Orders & Revenue
+CREATE OR REPLACE VIEW your_dataset.v_daily_revenue AS
+SELECT
+  DATE(o.created_at) AS order_date,
+  COUNT(DISTINCT o.order_id) AS orders,
+  SUM(oi.sale_price) AS revenue
+FROM `bigquery-public-data.thelook_ecommerce.orders`  AS o
+JOIN `bigquery-public-data.thelook_ecommerce.order_items` AS oi
+  ON o.order_id = oi.order_id
+WHERE o.status NOT IN ('Cancelled','Returned')
+GROUP BY order_date
+ORDER BY order_date;
+
+-- 2. Category GMV & Margin
+CREATE OR REPLACE VIEW `YOUR_PROJECT_ID.portfolio.v_category_margin_daily` AS
+SELECT
+  DATE(o.created_at) AS order_date,
+  p.category,
+  SUM(oi.sale_price) AS gmv,
+  SUM(oi.sale_price - p.cost) AS margin,
+  SAFE_DIVIDE(SUM(oi.sale_price - p.cost), NULLIF(SUM(oi.sale_price),0)) AS margin_pct
+FROM `bigquery-public-data.thelook_ecommerce.order_items` AS oi
+JOIN `bigquery-public-data.thelook_ecommerce.orders`      AS o
+  ON o.order_id = oi.order_id
+JOIN `bigquery-public-data.thelook_ecommerce.products`    AS p
+  ON oi.product_id = p.id
+WHERE o.status NOT IN ('Cancelled','Returned')
+GROUP BY order_date, p.category
+ORDER BY order_date, p.category;
+
+```
+-- 3. KPIs for the last 12 months
 DECLARE start_date DATE DEFAULT DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 11 MONTH);
 DECLARE end_date   DATE DEFAULT DATE_ADD(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 1 MONTH);
 
@@ -20,7 +51,7 @@ SELECT
   SAFE_DIVIDE(SUM(sale_price), COUNT(DISTINCT order_id)) AS aov
 FROM base;
 
--- 2. Month-over-Month revenue change (latest month vs previous)
+-- 4. Month-over-Month revenue change (latest month vs previous)
 DECLARE start_date DATE DEFAULT DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 11 MONTH);
 DECLARE end_date   DATE DEFAULT DATE_ADD(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 1 MONTH);
 
@@ -52,7 +83,7 @@ FROM cmp
 ORDER BY month DESC
 LIMIT 1;
 
--- 3. Category mix & margin for the last 12 months
+-- 5. Category mix & margin for the last 12 months
 DECLARE start_date DATE DEFAULT DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 11 MONTH);
 DECLARE end_date   DATE DEFAULT DATE_ADD(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 1 MONTH);
 
@@ -80,7 +111,7 @@ FROM cat
 ORDER BY gmv DESC
 LIMIT 10;
 
--- 4. Last full month vs previous: Orders, AOV, and their MoM%
+-- 6. Last full month vs previous: Orders, AOV, and their MoM%
 DECLARE last_m_start DATE DEFAULT DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 1 MONTH);
 DECLARE last_m_end   DATE DEFAULT DATE_TRUNC(CURRENT_DATE(), MONTH);
 DECLARE prev_m_start DATE DEFAULT DATE_SUB(last_m_start, INTERVAL 1 MONTH);
@@ -108,5 +139,5 @@ SELECT
   SAFE_DIVIDE(SAFE_DIVIDE(rev_this, ord_this) - SAFE_DIVIDE(rev_prev, ord_prev),
               SAFE_DIVIDE(rev_prev, ord_prev)) AS aov_mom_pct
 FROM agg;
-
+```
 
