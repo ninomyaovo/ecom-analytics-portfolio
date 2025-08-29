@@ -3,26 +3,20 @@
 **TL;DR:** A clean, reproducible analytics project that showcases SQL rigor, KPI design, and executive storytelling using the **TheLook eCommerce** public dataset (BigQuery) and **Tableau**.
 
 Data Source: The TheLook dataset is an e-commerce dataset provided by Google Cloud Run as part of their BigQuery Public Datasets program. It contains online retail business data for 2000+ days including:
-- users → Customer information (location, sign-up date, gender, age group, etc.).
-- products → Product catalog (id, category, brand, department, cost, and price).
-- orders → Order-level info (order id, user id, order status, created_at, returned/cancelled).
-- order_items → Line-item detail for each order (sale_price, product_id, cost).
-- distribution_centers → Warehouse locations.
-- inventory_items → Stock levels by product/location.
-- events → Web events (page views, clicks, conversions).
+- `users` → Customer information (location, sign-up date, gender, age group, etc.).
+- `products` → Product catalog (id, category, brand, department, cost, and price).
+- `orders` → Order-level info (order id, user id, order status, created_at, returned/cancelled).
+- `order_items` → Line-item detail for each order (sale_price, product_id, cost).
+- `distribution_centers` → Warehouse locations.
+- `inventory_items` → Stock levels by product/location.
+- `events` → Web events (page views, clicks, conversions).
 
 ## What this project demonstrates
 - End-to-end analytics: data → SQL views → Tableau dashboard → business insights
 - Core KPIs: Revenue, Orders, AOV, Margin%, Category performance
 - Clear **executive memo** with decisions and next steps
 
----
-
-## Reproduce this project
-
 ## Results (Screenshots)
-
-> Preview of the dashboard outputs. (Images are in `docs/img/`.)
 
 **Overview (Revenue & Orders trend + KPIs)**
 ![Overview](docs/img/overview.png)
@@ -30,43 +24,16 @@ Data Source: The TheLook dataset is an e-commerce dataset provided by Google Clo
 **Category Unit Economics (GMV & Margin%)**
 ![Category](docs/img/category.png)
 
-### Quick insights (Details in `docs\README.md`)
-- Revenue up **+X% MoM**; Orders +Y%; **AOV** stable at $Z.
+### Quick insights (see `docs\executive_memo.md` for full details)
+- Revenue up **+57.6% MoM**; Orders +56.5%; **AOV** + 85.8% for past 12 months.
 - Top categories by GMV: A, B, C; **Highest Margin%**: D.
-- Seasonal lift visible in Q4; consider advancing promo calendar and inventory.
-
-### 1) BigQuery setup
-**Where to run:** Google BigQuery Console → **Query editor**
-
-> Replace `YOUR_PROJECT_ID` below with your actual GCP project ID (no spaces). Make sure your dataset is in **US** region.
-
-Run the view pack in `sql/bq_views.sql`. It creates:
-- `v_daily_revenue` — daily Orders & Revenue
-- `v_category_margin` — category GMV/Margin (overall)
-- `v_category_margin_daily` — category GMV/Margin **by day** (enables date filtering in Tableau)
-
-### 2) Tableau setup
-**Where to click:** Tableau Desktop → **Connect → Google BigQuery**
-
-- **Billing Project:** your GCP project
-- **Project:** your GCP project
-- **Dataset:** `portfolio` (or the dataset you used)
-- Drag **`v_daily_revenue`** for the trend & KPIs
-- Drag **`v_category_margin_daily`** for the category chart (date-aware)
-- Alternatively, use the snippets in `sql/tableau_custom_sql.sql` via **New Custom SQL**
-
-### 3) Business insights (how to use this repo)
-- Fill in **docs/executive_memo_template.md** with key findings and decisions
-- Keep **docs/kpi_definitions.md** as your metric source of truth
-- Export your final Tableau workbook to `/tableau/dashboard.twbx` (and add screenshots in `/docs/img/`)
-
----
 
 ## Business questions this answers
 1. **Growth**: How are revenue and orders trending? What’s the **AOV**?
 2. **Unit economics**: Which categories drive **GMV** and **Margin%**?
 3. **Seasonality**: What periods show spikes or dips?
-4. **Next actions**: Where should we shift focus—channels, categories, pricing, or bundles?
+4. **What drove the jump:** Orders vs AOV
+5. **Next actions**: Where should we shift focus—channels, categories, pricing, or bundles?
 
 ## KPIs used (see `docs/kpi_definitions.md` for full details)
 - **Revenue** — sum of sales (excl. canceled/returned)
@@ -77,12 +44,38 @@ Run the view pack in `sql/bq_views.sql`. It creates:
 
 ---
 
+## Steps to reproduce this project
+
+### 1) BigQuery setup
+**Where to run:** Google BigQuery Console → Query editor
+
+> Find the thelook_ecommerce dataset from bigquery-public-data and add to your project.
+> Run the view pack in `sql/bq_views.sql`. Replace `YOUR_PROJECT_ID` in `bq_views.sql` with your actual GCP project ID. Make sure your dataset is in **US** region. It creates:
+- `v_daily_revenue` — daily Orders & Revenue
+- `v_category_margin_daily` — category GMV/Margin by day
+
+### 2) Tableau setup
+**Where to run:** Tableau Desktop → Connect → Google BigQuery
+
+- **Billing Project:** your GCP project
+- **Project:** your GCP project
+- Drag **`v_daily_revenue`** for the trend & KPIs
+- Drag **`v_category_margin_daily`** for the category chart
+- Alternatively, use the snippets in `sql/tableau_custom_sql.sql` via **New Custom SQL**
+
+### 3) Business insights (how to use this repo)
+- Fill in **docs/executive_memo.md** with key findings and decisions
+- Keep **docs/kpi_definitions.md** as your metric source of truth
+- Export final Tableau workbook to `/tableau/dashboard.twbx` (and add screenshots in `/docs/img/`)
+
+---
+
 ## Repo structure
 ```
 ecom-analytics-portfolio/
 ├─ README.md
 ├─ docs/
-│  ├─ executive_memo_template.md
+│  ├─ executive_memo.md
 │  ├─ kpi_definitions.md
 │  └─ img/                      # screenshots of your dashboard
 ├─ sql/
