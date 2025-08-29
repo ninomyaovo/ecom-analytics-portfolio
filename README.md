@@ -24,7 +24,7 @@ Data Source: The TheLook dataset is an e-commerce dataset provided by Google Clo
 **Category Unit Economics (GMV & Margin%)**
 ![Category](docs/img/category.png)
 
-🔗 [View Interactive Dashboard on Tableau Public]([https://public.tableau.com/views/YOUR-DASHBOARD-LINK](https://public.tableau.com/app/profile/muzi.chen4126/viz/E-commerceProject_17564325507470/E-commerceOverview?publish=yes))
+🔗 [View Interactive Dashboard on Tableau Public](https://public.tableau.com/app/profile/muzi.chen4126/viz/E-commerceProject_17564325507470/E-commerceOverview?publish=yes)
 
 ### Quick insights (see `docs/executive_memo.md` for full details)
 - Revenue up **+69.7% MoM**; Orders +64.1%; **AOV** = $86.9 for past 12 months.
