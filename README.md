@@ -28,7 +28,7 @@ Data Source: The TheLook dataset is an e-commerce dataset provided by Google Clo
 
 ### Quick insights (see `docs/executive_memo.md` for full details)
 - Revenue up **+69.7% MoM**; Orders +64.1%; **AOV** = $86.9 for past 12 months.
-- Top categories by GMV: Outerwear, Jeans, and Sweaters; **Highest Margin%**: D.
+- Top categories by GMV: Outerwear, Jeans, and Sweaters; **Highest Margin%**: Blazers.
 
 ## Business questions this answers
 1. **Growth**: How are revenue and orders trending? What’s the **AOV**?
