@@ -1,11 +1,11 @@
 -- Create Views
 -- 1. Daily Orders & Revenue
-CREATE OR REPLACE VIEW your_dataset.v_daily_revenue AS
+CREATE OR REPLACE VIEW `YOUR_PROJECT_ID.portfolio.v_daily_revenue` AS
 SELECT
   DATE(o.created_at) AS order_date,
   COUNT(DISTINCT o.order_id) AS orders,
   SUM(oi.sale_price) AS revenue
-FROM `bigquery-public-data.thelook_ecommerce.orders`  AS o
+FROM `bigquery-public-data.thelook_ecommerce.orders` AS o
 JOIN `bigquery-public-data.thelook_ecommerce.order_items` AS oi
   ON o.order_id = oi.order_id
 WHERE o.status NOT IN ('Cancelled','Returned')
